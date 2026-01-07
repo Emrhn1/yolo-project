@@ -198,6 +198,18 @@ model.train(
 |:---------:|:------:|:--------:|:--------:|
 | ![P](runs/detect/yolov8s/train3/BoxP_curve.png) | ![R](runs/detect/yolov8s/train3/BoxR_curve.png) | ![F1](runs/detect/yolov8s/train3/BoxF1_curve.png) | ![PR](runs/detect/yolov8s/train3/BoxPR_curve.png) |
 
+**Training Samples**
+
+| Batch 0 | Batch 1 | Batch 2 |
+|:-------:|:-------:|:-------:|
+| ![](runs/detect/yolov8s/train3/train_batch0.jpg) | ![](runs/detect/yolov8s/train3/train_batch1.jpg) | ![](runs/detect/yolov8s/train3/train_batch2.jpg) |
+
+**Validation Predictions**
+
+| Labels | Predictions |
+|:------:|:-----------:|
+| ![](runs/detect/yolov8s/train3/val_batch0_labels.jpg) | ![](runs/detect/yolov8s/train3/val_batch0_pred.jpg) |
+
 ---
 
 ### YOLOv9s Training Performance
@@ -229,6 +241,18 @@ model.train(
 |:---------:|:------:|:--------:|:--------:|
 | ![P](runs/detect/yolov9n/train/BoxP_curve.png) | ![R](runs/detect/yolov9n/train/BoxR_curve.png) | ![F1](runs/detect/yolov9n/train/BoxF1_curve.png) | ![PR](runs/detect/yolov9n/train/BoxPR_curve.png) |
 
+**Training Samples**
+
+| Batch 0 | Batch 1 | Batch 2 |
+|:-------:|:-------:|:-------:|
+| ![](runs/detect/yolov9n/train/train_batch0.jpg) | ![](runs/detect/yolov9n/train/train_batch1.jpg) | ![](runs/detect/yolov9n/train/train_batch2.jpg) |
+
+**Validation Predictions**
+
+| Labels | Predictions |
+|:------:|:-----------:|
+| ![](runs/detect/yolov9n/train/val_batch0_labels.jpg) | ![](runs/detect/yolov9n/train/val_batch0_pred.jpg) |
+
 ---
 
 ### YOLOv10s Training Performance
@@ -259,6 +283,18 @@ model.train(
 | Precision | Recall | F1-Score | PR Curve |
 |:---------:|:------:|:--------:|:--------:|
 | ![P](runs/detect/yolov10/BoxP_curve.png) | ![R](runs/detect/yolov10/BoxR_curve.png) | ![F1](runs/detect/yolov10/BoxF1_curve.png) | ![PR](runs/detect/yolov10/BoxPR_curve.png) |
+
+**Training Samples**
+
+| Batch 0 | Batch 1 | Batch 2 |
+|:-------:|:-------:|:-------:|
+| ![](runs/detect/yolov10/train_batch0.jpg) | ![](runs/detect/yolov10/train_batch1.jpg) | ![](runs/detect/yolov10/train_batch2.jpg) |
+
+**Validation Predictions**
+
+| Labels | Predictions |
+|:------:|:-----------:|
+| ![](runs/detect/yolov10/val_batch0_labels.jpg) | ![](runs/detect/yolov10/val_batch0_pred.jpg) |
 
 ---
 
@@ -516,7 +552,9 @@ yolo-project/
 │       ├── val/                  # Validation results
 │       └── val2/
 │
-├── train_yolov8.py               # Training script example
+├── train_yolov8.py               # YOLOv8 training script
+├── train_yolov9.py               # YOLOv9 training script
+├── train_yolov10.py              # YOLOv10 training script
 ├── yolov8n.pt                    # Pretrained YOLOv8 weights
 ├── yolov9s.pt                    # Pretrained YOLOv9 weights
 ├── yolov10s.pt                   # Pretrained YOLOv10 weights
