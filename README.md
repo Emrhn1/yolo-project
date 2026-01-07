@@ -88,7 +88,7 @@ pip install ultralytics
 
 Üç model de adil karşılaştırma için tutarlı parametrelerle eğitildi:
 
-| Parametre | YOLOv8n | YOLOv9s | YOLOv10s |
+| Parametre | YOLOv8s | YOLOv9n | YOLOv10s |
 |-----------|---------|---------|----------|
 | **Epoch** | 30 | 30 | 30 |
 | **Batch Boyutu** | 16 | 8 | 8 |
@@ -105,7 +105,7 @@ pip install ultralytics
 ```python
 from ultralytics import YOLO
 
-model = YOLO("yolov8n.pt")  # Önceden eğitilmiş modeli yükle
+model = YOLO("yolov8s.pt")  # Önceden eğitilmiş modeli yükle
 model.train(
     data="dataset/data.yaml",
     epochs=30,
@@ -119,7 +119,7 @@ model.train(
 ```python
 from ultralytics import YOLO
 
-model = YOLO("yolov9s.pt")
+model = YOLO("yolov9n.pt")
 model.train(
     data="dataset/data.yaml",
     epochs=30,
@@ -169,7 +169,7 @@ model.train(
 
 ## 📈 Eğitim Sonuçları
 
-### YOLOv8n Eğitim Performansı
+### YOLOv8s Eğitim Performansı
 
 **Son Metrikler (Epoch 30)**
 | Metrik | Değer |
@@ -212,7 +212,7 @@ model.train(
 
 ---
 
-### YOLOv9s Eğitim Performansı
+### YOLOv9n Eğitim Performansı
 
 **Son Metrikler (Epoch 30)**
 | Metrik | Değer |
@@ -321,7 +321,7 @@ runs/detect/
 ├── yolov9n/train/weights/
 │   ├── best.pt        # YOLOv9 en iyi model
 │   └── last.pt
-└── yolov10/weights/
+└── yolov10s/weights/
     ├── best.pt        # YOLOv10 en iyi model
     └── last.pt
 ```
@@ -338,7 +338,7 @@ runs/detect/
 
 ### Doğrulama Komutları
 
-#### YOLOv8n
+#### YOLOv8s
 ```python
 from ultralytics import YOLO
 
@@ -346,7 +346,7 @@ model = YOLO("runs/detect/yolov8s/train3/weights/best.pt")
 metrics = model.val(data="dataset/data.yaml")
 ```
 
-#### YOLOv9s
+#### YOLOv9n
 ```python
 from ultralytics import YOLO
 
@@ -434,8 +434,8 @@ results = model.predict(
 
 | Model | mAP50-95 | mAP50 | Precision | Recall | Eğitim Süresi* | Batch Boyutu |
 |-------|----------|-------|-----------|--------|----------------|--------------|
-| **YOLOv8n** | **%71.73** ✅ | **%91.78** | **%92.17** | %83.87 | ~1.170s | 16 |
-| **YOLOv9s** | **%70.79** | **%91.35** | %88.96 | **%86.19** | ~3.286s | 8 |
+| **YOLOv8s** | **%71.73** ✅ | **%91.78** | **%92.17** | %83.87 | ~1.170s | 16 |
+| **YOLOv9n** | **%70.79** | **%91.35** | %88.96 | **%86.19** | ~3.286s | 8 |
 | **YOLOv10s** | %68.44 | %90.54 | %86.10 | **%85.74** | ~3.363s | 8 |
 
 <sub>*GPU'da 30 epoch için eğitim süresi (toplam geçen süre)</sub>
@@ -461,8 +461,8 @@ results = model.predict(
 ### Performans ve Hız Dengeleri
 
 ```
-YOLOv8n:  ████████████ %71.73 mAP | Hız: ★★★★★ (En Hızlı)
-YOLOv9s:  ███████████  %70.79 mAP | Hız: ★★☆☆☆ (Daha Yavaş)
+YOLOv8s:  ████████████ %71.73 mAP | Hız: ★★★★★ (En Hızlı)
+YOLOv9n:  ███████████  %70.79 mAP | Hız: ★★☆☆☆ (Daha Yavaş)
 YOLOv10s: ██████████   %68.44 mAP | Hız: ★★☆☆☆ (Daha Yavaş)
 ```
 
@@ -470,9 +470,9 @@ YOLOv10s: ██████████   %68.44 mAP | Hız: ★★☆☆☆ (D
 
 | Kullanım Durumu | Önerilen Model | Gerekçe |
 |-----------------|----------------|---------|
-| **Klinik Dağıtım** | YOLOv9s | Yüksek recall kaçırılan tespitleri minimize eder |
+| **Klinik Dağıtım** | YOLOv9n | Yüksek recall kaçırılan tespitleri minimize eder |
 | **Gerçek Zamanlı Tarama** | YOLOv8n | En iyi hız-doğruluk dengesi |
-| **Araştırma/Analiz** | YOLOv8n | Detaylı çalışmalar için en yüksek precision |
+| **Araştırma/Analiz** | YOLOv8s | Detaylı çalışmalar için en yüksek precision |
 | **Gömülü Sistemler** | YOLOv8n | Hafif, verimli, hızlı çıkarım |
 | **Üretim Hattı** | YOLOv10s | Dengeli performans, NMS-siz |
 
@@ -482,9 +482,9 @@ YOLOv10s: ██████████   %68.44 mAP | Hız: ★★☆☆☆ (D
 
 Bu karşılaştırmalı çalışma şunları göstermektedir:
 
-1. **YOLOv8n en iyi genel performansı** %71.73 mAP50-95 ile elde eder, hem doğruluk hem de hızın önemli olduğu çoğu beyin tümörü tespit uygulaması için ideal hale getirir.
+1. **YOLOv8s en iyi genel performansı** %71.73 mAP50-95 ile elde eder, hem doğruluk hem de hızın önemli olduğu çoğu beyin tümörü tespit uygulaması için ideal hale getirir.
 
-2. **YOLOv9s üstün recall** (%86.19) sunar, bu tıbbi görüntülemede bir tümörü kaçırmanın (yanlış negatif) yanlış pozitiften daha maliyetli olduğu durumlar için kritiktir.
+2. **YOLOv9n üstün recall** (%86.19) sunar, bu tıbbi görüntülemede bir tümörü kaçırmanın (yanlış negatif) yanlış pozitiften daha maliyetli olduğu durumlar için kritiktir.
 
 3. **YOLOv10s en dengeli tahminleri** neredeyse eşit precision ve recall ile sağlar, ancak biraz daha düşük genel doğrulukla.
 
@@ -571,22 +571,6 @@ yolo-project/
 - **YOLOv10 Makalesi**: [YOLOv10: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
 - **Veri Seti**: [Brain Tumor - Roboflow Universe](https://universe.roboflow.com/academia-keleu/brain-tumor-bb6yj/dataset/1)
 
----
-
-## 📝 Lisans
-
-- **Kod**: Bu proje AGPL-3.0 lisansı altında [Ultralytics YOLO](https://github.com/ultralytics/ultralytics) kullanır
-- **Veri Seti**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
-
----
-
-## 👥 Teşekkürler
-
-- **Veri Seti Sağlayıcısı**: academia-keleu @ Roboflow Universe
-- **Framework**: Ultralytics YOLO ekibi
-- **YOLO Yaratıcıları**: Redmon ve arkadaşları, ve YOLOv8/v9/v10'a sonraki katkıda bulunanlar
-
----
 
 <div align="center">
 
