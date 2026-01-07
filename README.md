@@ -1,8 +1,8 @@
-# Brain Tumor Detection Using YOLO Object Detection Models
+# YOLO Nesne Algılama Modelleri ile Beyin Tümörü Tespiti
 
 <div align="center">
 
-**Comparative Analysis of YOLOv8, YOLOv9, and YOLOv10 for Medical Image Object Detection**
+**Tıbbi Görüntü Nesne Algılama için YOLOv8, YOLOv9 ve YOLOv10 Karşılaştırmalı Analizi**
 
 [![Python](https://img.shields.io/badge/Python-3.8+-blue.svg)](https://www.python.org/)
 [![Ultralytics](https://img.shields.io/badge/Ultralytics-YOLO-00FFFF.svg)](https://github.com/ultralytics/ultralytics)
@@ -12,53 +12,53 @@
 
 ---
 
-## 📋 Project Overview
+## 📋 Proje Genel Bakış
 
-This project implements and compares three state-of-the-art YOLO (You Only Look Once) object detection models for automated brain tumor detection in medical imaging. The goal is to evaluate the performance trade-offs between **YOLOv8s**, **YOLOv9n**, and **YOLOv10s** on the same brain tumor dataset.
+Bu proje, tıbbi görüntülemede otomatik beyin tümörü tespiti için üç son teknoloji YOLO (You Only Look Once - Sadece Bir Kez Bak) nesne algılama modelini uygular ve karşılaştırır. Amaç, aynı beyin tümörü veri seti üzerinde **YOLOv8s**, **YOLOv9n** ve **YOLOv10s** arasındaki performans dengelerini değerlendirmektir.
 
-### Medical Context
+### Tıbbi Bağlam
 
-Brain tumors are among the most serious medical conditions requiring early and accurate detection for effective treatment planning. This project leverages deep learning-based object detection to automatically identify and classify three types of brain tumors:
-- **Glioma** - A type of tumor that occurs in the brain and spinal cord
-- **Meningioma** - A tumor that arises from the meninges
-- **Pituitary** - A tumor that forms in the pituitary gland
+Beyin tümörleri, etkili tedavi planlaması için erken ve doğru tespit gerektiren en ciddi tıbbi durumlar arasındadır. Bu proje, üç tip beyin tümörünü otomatik olarak tanımlamak ve sınıflandırmak için derin öğrenme tabanlı nesne algılamayı kullanır:
+- **Glioma (Gliom)** - Beyin ve omurilikde oluşan bir tümör türü
+- **Meningioma (Meningiom)** - Meninksten kaynaklanan bir tümör
+- **Pituitary (Hipofiz)** - Hipofiz bezinde oluşan bir tümör
 
-Unlike traditional classification approaches, object detection provides both tumor localization and classification, which is crucial for medical diagnosis and treatment planning.
+Geleneksel sınıflandırma yaklaşımlarından farklı olarak, nesne algılama hem tümör lokalizasyonu hem de sınıflandırma sağlar, bu da tıbbi teşhis ve tedavi planlaması için kritik öneme sahiptir.
 
 ---
 
-## 📊 Dataset
+## 📊 Veri Seti
 
-### Source
-**Brain Tumor Dataset** from [Roboflow Universe](https://universe.roboflow.com/academia-keleu/brain-tumor-bb6yj/dataset/1)
+### Kaynak
+**Beyin Tümörü Veri Seti** - [Roboflow Universe](https://universe.roboflow.com/academia-keleu/brain-tumor-bb6yj/dataset/1)
 
-- **Workspace**: academia-keleu
-- **Project**: brain-tumor-bb6yj
-- **Version**: 1
-- **License**: CC BY 4.0
-- **Date**: 2024-07-04
+- **Çalışma Alanı**: academia-keleu
+- **Proje**: brain-tumor-bb6yj
+- **Versiyon**: 1
+- **Lisans**: CC BY 4.0
+- **Tarih**: 2024-07-04
 
-### Classes
-The dataset contains **3 tumor classes**:
+### Sınıflar
+Veri seti **3 tümör sınıfı** içerir:
 ```python
 names: ['glioma', 'meningioma', 'pituitary']
 ```
 
-### Dataset Structure
+### Veri Seti Yapısı
 ```
 dataset/
 ├── train/
-│   ├── images/     # ~2,062 training images
-│   └── labels/     # YOLO format annotations
+│   ├── images/     # ~2.062 eğitim görüntüsü
+│   └── labels/     # YOLO format etiketler
 ├── valid/
-│   ├── images/     # ~612 validation images
-│   └── labels/     # YOLO format annotations
+│   ├── images/     # ~612 doğrulama görüntüsü
+│   └── labels/     # YOLO format etiketler
 └── test/
-    ├── images/     # ~308 test images
-    └── labels/     # YOLO format annotations
+    ├── images/     # ~308 test görüntüsü
+    └── labels/     # YOLO format etiketler
 ```
 
-### Data Configuration (`data.yaml`)
+### Veri Yapılandırması (`data.yaml`)
 ```yaml
 train: ../train/images
 val: ../valid/images
@@ -70,42 +70,42 @@ names: ['glioma', 'meningioma', 'pituitary']
 
 ---
 
-## 🛠️ Training Setup
+## 🛠️ Eğitim Ayarları
 
-### Environment
-- **Python Version**: 3.8+
+### Ortam
+- **Python Versiyonu**: 3.8+
 - **Framework**: Ultralytics YOLO
-- **Hardware**: NVIDIA GPU (CUDA enabled)
-  - Device: `cuda:0` (GPU acceleration)
-- **OS**: Windows
+- **Donanım**: NVIDIA GPU (CUDA etkin)
+  - Cihaz: `cuda:0` (GPU hızlandırma)
+- **İşletim Sistemi**: Windows
 
-### Installation
+### Kurulum
 ```bash
 pip install ultralytics
 ```
 
-### Training Configuration
+### Eğitim Yapılandırması
 
-All three models were trained with consistent parameters for fair comparison:
+Üç model de adil karşılaştırma için tutarlı parametrelerle eğitildi:
 
-| Parameter | YOLOv8n | YOLOv9s | YOLOv10s |
+| Parametre | YOLOv8n | YOLOv9s | YOLOv10s |
 |-----------|---------|---------|----------|
-| **Epochs** | 30 | 30 | 30 |
-| **Batch Size** | 16 | 8 | 8 |
-| **Image Size** | 640×640 | 640×640 | 640×640 |
-| **Device** | GPU (cuda:0) | GPU (cuda:0) | GPU (cuda:0) |
-| **Optimizer** | Auto | Auto | Auto |
-| **Pretrained** | Yes (COCO) | Yes (COCO) | Yes (COCO) |
+| **Epoch** | 30 | 30 | 30 |
+| **Batch Boyutu** | 16 | 8 | 8 |
+| **Görüntü Boyutu** | 640×640 | 640×640 | 640×640 |
+| **Cihaz** | GPU (cuda:0) | GPU (cuda:0) | GPU (cuda:0) |
+| **Optimizer** | Otomatik | Otomatik | Otomatik |
+| **Önceden Eğitilmiş** | Evet (COCO) | Evet (COCO) | Evet (COCO) |
 | **Workers** | 8 | 8 | 8 |
 | **AMP** | True | True | True |
 
-### Training Commands
+### Eğitim Komutları
 
 #### YOLOv8n
 ```python
 from ultralytics import YOLO
 
-model = YOLO("yolov8n.pt")  # Load pretrained model
+model = YOLO("yolov8n.pt")  # Önceden eğitilmiş modeli yükle
 model.train(
     data="dataset/data.yaml",
     epochs=30,
@@ -145,198 +145,198 @@ model.train(
 
 ---
 
-## 🏗️ Model Architectures
+## 🏗️ Model Mimarileri
 
 ### YOLOv8s (Small)
-- **Variant**: YOLOv8 Nano (lightweight version)
-- **Focus**: Balance between speed and accuracy
-- **Architecture**: CSPDarknet backbone with PAN-FPN neck
-- **Why chosen**: Ideal baseline for real-time applications with minimal computational overhead
+- **Varyant**: YOLOv8 Nano (hafif versiyon)
+- **Odak**: Hız ve doğruluk arasında denge
+- **Mimari**: PAN-FPN boynu ile CSPDarknet omurgası
+- **Neden seçildi**: Minimum hesaplama yükü ile gerçek zamanlı uygulamalar için ideal temel
 
 ### YOLOv9n (Nano)
-- **Variant**: YOLOv9 Small
-- **Focus**: Improved feature extraction with GELAN architecture
-- **Architecture**: Programmable Gradient Information (PGI) + GELAN
-- **Why chosen**: Latest advancements in object detection with better gradient flow
+- **Varyant**: YOLOv9 Small
+- **Odak**: GELAN mimarisi ile geliştirilmiş özellik çıkarımı
+- **Mimari**: Programlanabilir Gradyan Bilgisi (PGI) + GELAN
+- **Neden seçildi**: Daha iyi gradyan akışı ile nesne algılamada en son gelişmeler
 
 ### YOLOv10s (Small)
-- **Variant**: YOLOv10 Small
-- **Focus**: NMS-free architecture for end-to-end detection
-- **Architecture**: Dual assignments for NMS-free training
-- **Why chosen**: Cutting-edge model with reduced post-processing overhead
+- **Varyant**: YOLOv10 Small
+- **Odak**: Uçtan uca algılama için NMS-siz mimari
+- **Mimari**: NMS-siz eğitim için çift atama
+- **Neden seçildi**: Azaltılmış son işleme yükü ile en ileri model
 
 ---
 
-## 📈 Training Results
+## 📈 Eğitim Sonuçları
 
-### YOLOv8n Training Performance
+### YOLOv8n Eğitim Performansı
 
-**Final Metrics (Epoch 30)**
-| Metric | Value |
+**Son Metrikler (Epoch 30)**
+| Metrik | Değer |
 |--------|-------|
-| Precision (B) | 92.17% |
-| Recall (B) | 83.87% |
-| mAP50 (B) | 91.78% |
-| **mAP50-95 (B)** | **71.73%** |
+| Precision (B) | %92.17 |
+| Recall (B) | %83.87 |
+| mAP50 (B) | %91.78 |
+| **mAP50-95 (B)** | **%71.73** |
 | Box Loss (val) | 0.9375 |
 | Class Loss (val) | 0.6628 |
 | DFL Loss (val) | 1.1952 |
 
-**Training Curves**
+**Eğitim Grafikleri**
 
-![Training Results](runs/detect/yolov8s/train3/results.png)
+![Eğitim Sonuçları](runs/detect/yolov8s/train3/results.png)
 
-**Confusion Matrix**
+**Karışıklık Matrisi**
 
-![Confusion Matrix](runs/detect/yolov8s/train3/confusion_matrix.png)
+![Karışıklık Matrisi](runs/detect/yolov8s/train3/confusion_matrix.png)
 
-![Normalized Confusion Matrix](runs/detect/yolov8s/train3/confusion_matrix_normalized.png)
+![Normalize Karışıklık Matrisi](runs/detect/yolov8s/train3/confusion_matrix_normalized.png)
 
-**Performance Curves**
+**Performans Grafikleri**
 
-| Precision | Recall | F1-Score | PR Curve |
-|:---------:|:------:|:--------:|:--------:|
+| Precision | Recall | F1-Skor | PR Eğrisi |
+|:---------:|:------:|:-------:|:---------:|
 | ![P](runs/detect/yolov8s/train3/BoxP_curve.png) | ![R](runs/detect/yolov8s/train3/BoxR_curve.png) | ![F1](runs/detect/yolov8s/train3/BoxF1_curve.png) | ![PR](runs/detect/yolov8s/train3/BoxPR_curve.png) |
 
-**Training Samples**
+**Eğitim Örnekleri**
 
 | Batch 0 | Batch 1 | Batch 2 |
 |:-------:|:-------:|:-------:|
 | ![](runs/detect/yolov8s/train3/train_batch0.jpg) | ![](runs/detect/yolov8s/train3/train_batch1.jpg) | ![](runs/detect/yolov8s/train3/train_batch2.jpg) |
 
-**Validation Predictions**
+**Doğrulama Tahminleri**
 
-| Labels | Predictions |
-|:------:|:-----------:|
+| Etiketler | Tahminler |
+|:---------:|:---------:|
 | ![](runs/detect/yolov8s/train3/val_batch0_labels.jpg) | ![](runs/detect/yolov8s/train3/val_batch0_pred.jpg) |
 
 ---
 
-### YOLOv9s Training Performance
+### YOLOv9s Eğitim Performansı
 
-**Final Metrics (Epoch 30)**
-| Metric | Value |
+**Son Metrikler (Epoch 30)**
+| Metrik | Değer |
 |--------|-------|
-| Precision (B) | 88.96% |
-| Recall (B) | 86.19% |
-| mAP50 (B) | 91.35% |
-| **mAP50-95 (B)** | **70.79%** |
+| Precision (B) | %88.96 |
+| Recall (B) | %86.19 |
+| mAP50 (B) | %91.35 |
+| **mAP50-95 (B)** | **%70.79** |
 | Box Loss (val) | 0.9453 |
 | Class Loss (val) | 0.6577 |
 | DFL Loss (val) | 1.3971 |
 
-**Training Curves**
+**Eğitim Grafikleri**
 
-![Training Results](runs/detect/yolov9n/train/results.png)
+![Eğitim Sonuçları](runs/detect/yolov9n/train/results.png)
 
-**Confusion Matrix**
+**Karışıklık Matrisi**
 
-![Confusion Matrix](runs/detect/yolov9n/train/confusion_matrix.png)
+![Karışıklık Matrisi](runs/detect/yolov9n/train/confusion_matrix.png)
 
-![Normalized Confusion Matrix](runs/detect/yolov9n/train/confusion_matrix_normalized.png)
+![Normalize Karışıklık Matrisi](runs/detect/yolov9n/train/confusion_matrix_normalized.png)
 
-**Performance Curves**
+**Performans Grafikleri**
 
-| Precision | Recall | F1-Score | PR Curve |
-|:---------:|:------:|:--------:|:--------:|
+| Precision | Recall | F1-Skor | PR Eğrisi |
+|:---------:|:------:|:-------:|:---------:|
 | ![P](runs/detect/yolov9n/train/BoxP_curve.png) | ![R](runs/detect/yolov9n/train/BoxR_curve.png) | ![F1](runs/detect/yolov9n/train/BoxF1_curve.png) | ![PR](runs/detect/yolov9n/train/BoxPR_curve.png) |
 
-**Training Samples**
+**Eğitim Örnekleri**
 
 | Batch 0 | Batch 1 | Batch 2 |
 |:-------:|:-------:|:-------:|
 | ![](runs/detect/yolov9n/train/train_batch0.jpg) | ![](runs/detect/yolov9n/train/train_batch1.jpg) | ![](runs/detect/yolov9n/train/train_batch2.jpg) |
 
-**Validation Predictions**
+**Doğrulama Tahminleri**
 
-| Labels | Predictions |
-|:------:|:-----------:|
+| Etiketler | Tahminler |
+|:---------:|:---------:|
 | ![](runs/detect/yolov9n/train/val_batch0_labels.jpg) | ![](runs/detect/yolov9n/train/val_batch0_pred.jpg) |
 
 ---
 
-### YOLOv10s Training Performance
+### YOLOv10s Eğitim Performansı
 
-**Final Metrics (Epoch 30)**
-| Metric | Value |
+**Son Metrikler (Epoch 30)**
+| Metrik | Değer |
 |--------|-------|
-| Precision (B) | 86.10% |
-| Recall (B) | 85.74% |
-| mAP50 (B) | 90.54% |
-| **mAP50-95 (B)** | **68.44%** |
+| Precision (B) | %86.10 |
+| Recall (B) | %85.74 |
+| mAP50 (B) | %90.54 |
+| **mAP50-95 (B)** | **%68.44** |
 | Box Loss (val) | 1.9826 |
 | Class Loss (val) | 1.3560 |
 | DFL Loss (val) | 2.5260 |
 
-**Training Curves**
+**Eğitim Grafikleri**
 
-![Training Results](runs/detect/yolov10/results.png)
+![Eğitim Sonuçları](runs/detect/yolov10/results.png)
 
-**Confusion Matrix**
+**Karışıklık Matrisi**
 
-![Confusion Matrix](runs/detect/yolov10/confusion_matrix.png)
+![Karışıklık Matrisi](runs/detect/yolov10/confusion_matrix.png)
 
-![Normalized Confusion Matrix](runs/detect/yolov10/confusion_matrix_normalized.png)
+![Normalize Karışıklık Matrisi](runs/detect/yolov10/confusion_matrix_normalized.png)
 
-**Performance Curves**
+**Performans Grafikleri**
 
-| Precision | Recall | F1-Score | PR Curve |
-|:---------:|:------:|:--------:|:--------:|
+| Precision | Recall | F1-Skor | PR Eğrisi |
+|:---------:|:------:|:-------:|:---------:|
 | ![P](runs/detect/yolov10/BoxP_curve.png) | ![R](runs/detect/yolov10/BoxR_curve.png) | ![F1](runs/detect/yolov10/BoxF1_curve.png) | ![PR](runs/detect/yolov10/BoxPR_curve.png) |
 
-**Training Samples**
+**Eğitim Örnekleri**
 
 | Batch 0 | Batch 1 | Batch 2 |
 |:-------:|:-------:|:-------:|
 | ![](runs/detect/yolov10/train_batch0.jpg) | ![](runs/detect/yolov10/train_batch1.jpg) | ![](runs/detect/yolov10/train_batch2.jpg) |
 
-**Validation Predictions**
+**Doğrulama Tahminleri**
 
-| Labels | Predictions |
-|:------:|:-----------:|
+| Etiketler | Tahminler |
+|:---------:|:---------:|
 | ![](runs/detect/yolov10/val_batch0_labels.jpg) | ![](runs/detect/yolov10/val_batch0_pred.jpg) |
 
 ---
 
-## 💾 Model Weights
+## 💾 Model Ağırlıkları
 
-Each trained model produces two weight files:
+Her eğitilmiş model iki ağırlık dosyası üretir:
 
-### `best.pt` - Best Performing Model
-- Saved when validation mAP50 achieves peak performance
-- **Recommended for deployment and inference**
-- Used for final model evaluation
+### `best.pt` - En İyi Performanslı Model
+- Doğrulama mAP50 en yüksek performansa ulaştığında kaydedilir
+- **Dağıtım ve çıkarım için önerilir**
+- Son model değerlendirmesi için kullanılır
 
-### `last.pt` - Last Epoch Checkpoint
-- Model state after completing all 30 epochs
-- Useful for resuming training or debugging
-- May not have optimal performance
+### `last.pt` - Son Epoch Kontrol Noktası
+- 30 epoch tamamlandıktan sonraki model durumu
+- Eğitime devam etmek veya hata ayıklama için faydalı
+- Optimal performansa sahip olmayabilir
 
-### Weight Locations
+### Ağırlık Konumları
 ```
 runs/detect/
 ├── yolov8s/train3/weights/
-│   ├── best.pt        # YOLOv8 best model
+│   ├── best.pt        # YOLOv8 en iyi model
 │   └── last.pt
 ├── yolov9n/train/weights/
-│   ├── best.pt        # YOLOv9 best model
+│   ├── best.pt        # YOLOv9 en iyi model
 │   └── last.pt
 └── yolov10/weights/
-    ├── best.pt        # YOLOv10 best model
+    ├── best.pt        # YOLOv10 en iyi model
     └── last.pt
 ```
 
-### Why Use `best.pt`?
-The `best.pt` model is preferred because:
-1. **Optimal Performance**: Represents the epoch with highest validation mAP
-2. **Generalization**: Avoids overfitting that may occur in later epochs
-3. **Production Ready**: Pre-validated for real-world deployment
+### Neden `best.pt` Kullanılmalı?
+`best.pt` modeli tercih edilir çünkü:
+1. **Optimal Performans**: En yüksek doğrulama mAP'ına sahip epoch'u temsil eder
+2. **Genelleme**: Sonraki epoch'larda oluşabilecek aşırı öğrenmeden kaçınır
+3. **Üretime Hazır**: Gerçek dünya dağıtımı için önceden doğrulanmış
 
 ---
 
-## 🔍 Evaluation
+## 🔍 Değerlendirme
 
-### Validation Commands
+### Doğrulama Komutları
 
 #### YOLOv8n
 ```python
@@ -362,58 +362,58 @@ model = YOLO("runs/detect/yolov10/weights/best.pt")
 metrics = model.val(data="dataset/data.yaml")
 ```
 
-### Evaluation Metrics Explained
+### Değerlendirme Metrikleri Açıklaması
 
-| Metric | Description |
-|--------|-------------|
-| **Precision** | Ratio of correct positive predictions to total positive predictions |
-| **Recall** | Ratio of correct positive predictions to total actual positives |
-| **mAP50** | Mean Average Precision at IoU threshold 0.5 |
-| **mAP50-95** | Mean Average Precision averaged over IoU thresholds 0.5 to 0.95 (primary metric) |
-| **Box Loss** | Bounding box regression loss |
-| **Class Loss** | Classification loss |
-| **DFL Loss** | Distribution Focal Loss for bounding box quality |
+| Metrik | Açıklama |
+|--------|----------|
+| **Precision (Kesinlik)** | Doğru pozitif tahminlerin toplam pozitif tahminlere oranı |
+| **Recall (Duyarlılık)** | Doğru pozitif tahminlerin toplam gerçek pozitiflere oranı |
+| **mAP50** | IoU eşiği 0.5'te Ortalama Hassasiyet |
+| **mAP50-95** | IoU eşikleri 0.5 ile 0.95 arasında ortalaması alınmış Ortalama Hassasiyet (ana metrik) |
+| **Box Loss** | Sınırlayıcı kutu regresyon kaybı |
+| **Class Loss** | Sınıflandırma kaybı |
+| **DFL Loss** | Sınırlayıcı kutu kalitesi için Dağıtım Odaklı Kayıp |
 
 ---
 
-## 🚀 Inference
+## 🚀 Çıkarım (Inference)
 
-### Run Detection on New Images
+### Yeni Görüntülerde Algılama Çalıştırma
 
-#### Using YOLOv8 (Best Model)
+#### YOLOv8 Kullanarak (En İyi Model)
 ```python
 from ultralytics import YOLO
 
-# Load trained model
+# Eğitilmiş modeli yükle
 model = YOLO("runs/detect/yolov8s/train3/weights/best.pt")
 
-# Run inference
+# Çıkarım çalıştır
 results = model.predict(
-    source="path/to/brain/scan.jpg",
-    conf=0.25,      # Confidence threshold
-    save=True,      # Save annotated images
-    device=0        # Use GPU
+    source="beyin/tarama/yolu.jpg",
+    conf=0.25,      # Güven eşiği
+    save=True,      # Etiketlenmiş görüntüleri kaydet
+    device=0        # GPU kullan
 )
 
-# Process results
+# Sonuçları işle
 for result in results:
-    boxes = result.boxes  # Bounding boxes
-    print(f"Detected {len(boxes)} tumors")
+    boxes = result.boxes  # Sınırlayıcı kutular
+    print(f"{len(boxes)} tümör tespit edildi")
 ```
 
-#### CLI Inference
+#### CLI Çıkarımı
 ```bash
 # YOLOv8
-yolo detect predict model=runs/detect/yolov8s/train3/weights/best.pt source=path/to/images conf=0.25
+yolo detect predict model=runs/detect/yolov8s/train3/weights/best.pt source=goruntuler/yolu conf=0.25
 
 # YOLOv9
-yolo detect predict model=runs/detect/yolov9n/train/weights/best.pt source=path/to/images conf=0.25
+yolo detect predict model=runs/detect/yolov9n/train/weights/best.pt source=goruntuler/yolu conf=0.25
 
 # YOLOv10
-yolo detect predict model=runs/detect/yolov10/weights/best.pt source=path/to/images conf=0.25
+yolo detect predict model=runs/detect/yolov10/weights/best.pt source=goruntuler/yolu conf=0.25
 ```
 
-### Batch Inference on Test Set
+### Test Setinde Toplu Çıkarım
 ```python
 from ultralytics import YOLO
 
@@ -421,177 +421,177 @@ model = YOLO("runs/detect/yolov8s/train3/weights/best.pt")
 results = model.predict(
     source="dataset/test/images",
     save=True,
-    save_txt=True,  # Save labels
+    save_txt=True,  # Etiketleri kaydet
     conf=0.25
 )
 ```
 
 ---
 
-## 📊 Model Comparison
+## 📊 Model Karşılaştırması
 
-### Performance Summary
+### Performans Özeti
 
-| Model | mAP50-95 | mAP50 | Precision | Recall | Training Time* | Batch Size |
-|-------|----------|-------|-----------|--------|----------------|------------|
-| **YOLOv8n** | **71.73%** ✅ | **91.78%** | **92.17%** | 83.87% | ~1,170s | 16 |
-| **YOLOv9s** | **70.79%** | **91.35%** | 88.96% | **86.19%** | ~3,286s | 8 |
-| **YOLOv10s** | 68.44% | 90.54% | 86.10% | **85.74%** | ~3,363s | 8 |
+| Model | mAP50-95 | mAP50 | Precision | Recall | Eğitim Süresi* | Batch Boyutu |
+|-------|----------|-------|-----------|--------|----------------|--------------|
+| **YOLOv8n** | **%71.73** ✅ | **%91.78** | **%92.17** | %83.87 | ~1.170s | 16 |
+| **YOLOv9s** | **%70.79** | **%91.35** | %88.96 | **%86.19** | ~3.286s | 8 |
+| **YOLOv10s** | %68.44 | %90.54 | %86.10 | **%85.74** | ~3.363s | 8 |
 
-<sub>*Training time for 30 epochs on GPU (total elapsed time)</sub>
+<sub>*GPU'da 30 epoch için eğitim süresi (toplam geçen süre)</sub>
 
-### Key Observations
+### Temel Gözlemler
 
-#### 🏆 Best Overall Accuracy: YOLOv8n
-- **Highest mAP50-95** (71.73%) - best at precise localization
-- **Highest mAP50** (91.78%) - excellent at basic detection
-- **Highest Precision** (92.17%) - most reliable positive predictions
-- **Fastest Training** - 2.8× faster than YOLOv9 and YOLOv10
+#### 🏆 En İyi Genel Doğruluk: YOLOv8n
+- **En yüksek mAP50-95** (%71.73) - hassas lokalizasyonda en iyi
+- **En yüksek mAP50** (%91.78) - temel algılamada mükemmel
+- **En yüksek Precision** (%92.17) - en güvenilir pozitif tahminler
+- **En hızlı eğitim** - YOLOv9 ve YOLOv10'dan 2.8 kat daha hızlı
 
-#### ⚡ Best Recall: YOLOv9s
-- **Highest Recall** (86.19%) - detects more tumors, fewer false negatives
-- Competitive mAP50-95 (70.79%)
-- Better at not missing tumors (critical for medical use)
+#### ⚡ En İyi Recall: YOLOv9s
+- **En yüksek Recall** (%86.19) - daha fazla tümör tespit eder, daha az yanlış negatif
+- Rekabetçi mAP50-95 (%70.79)
+- Tümörleri kaçırmamada daha iyi (tıbbi kullanım için kritik)
 
-#### 🔄 Most Balanced: YOLOv10s
-- Best **Precision-Recall balance** (86.10% / 85.74%)
-- NMS-free architecture reduces post-processing
-- Slightly lower mAP but more consistent predictions
+#### 🔄 En Dengeli: YOLOv10s
+- En iyi **Precision-Recall dengesi** (%86.10 / %85.74)
+- NMS-siz mimari son işlemeyi azaltır
+- Biraz düşük mAP ama daha tutarlı tahminler
 
-### Performance vs. Speed Trade-offs
+### Performans ve Hız Dengeleri
 
 ```
-YOLOv8n:  ████████████ 71.73% mAP | Speed: ★★★★★ (Fastest)
-YOLOv9s:  ███████████  70.79% mAP | Speed: ★★☆☆☆ (Slower)
-YOLOv10s: ██████████   68.44% mAP | Speed: ★★☆☆☆ (Slower)
+YOLOv8n:  ████████████ %71.73 mAP | Hız: ★★★★★ (En Hızlı)
+YOLOv9s:  ███████████  %70.79 mAP | Hız: ★★☆☆☆ (Daha Yavaş)
+YOLOv10s: ██████████   %68.44 mAP | Hız: ★★☆☆☆ (Daha Yavaş)
 ```
 
-### Recommendations by Use Case
+### Kullanım Durumuna Göre Öneriler
 
-| Use Case | Recommended Model | Reasoning |
-|----------|------------------|-----------|
-| **Clinical Deployment** | YOLOv9s | High recall minimizes missed detections |
-| **Real-time Screening** | YOLOv8n | Best speed-accuracy trade-off |
-| **Research/Analysis** | YOLOv8n | Highest precision for detailed studies |
-| **Embedded Systems** | YOLOv8n | Lightweight, efficient, fast inference |
-| **Production Pipeline** | YOLOv10s | Balanced performance, NMS-free |
+| Kullanım Durumu | Önerilen Model | Gerekçe |
+|-----------------|----------------|---------|
+| **Klinik Dağıtım** | YOLOv9s | Yüksek recall kaçırılan tespitleri minimize eder |
+| **Gerçek Zamanlı Tarama** | YOLOv8n | En iyi hız-doğruluk dengesi |
+| **Araştırma/Analiz** | YOLOv8n | Detaylı çalışmalar için en yüksek precision |
+| **Gömülü Sistemler** | YOLOv8n | Hafif, verimli, hızlı çıkarım |
+| **Üretim Hattı** | YOLOv10s | Dengeli performans, NMS-siz |
 
 ---
 
-## 🎯 Conclusion
+## 🎯 Sonuç
 
-This comparative study demonstrates that:
+Bu karşılaştırmalı çalışma şunları göstermektedir:
 
-1. **YOLOv8n achieves the best overall performance** with 71.73% mAP50-95, making it ideal for most brain tumor detection applications where both accuracy and speed matter.
+1. **YOLOv8n en iyi genel performansı** %71.73 mAP50-95 ile elde eder, hem doğruluk hem de hızın önemli olduğu çoğu beyin tümörü tespit uygulaması için ideal hale getirir.
 
-2. **YOLOv9s offers superior recall** (86.19%), which is critical in medical imaging where missing a tumor (false negative) is more costly than a false positive.
+2. **YOLOv9s üstün recall** (%86.19) sunar, bu tıbbi görüntülemede bir tümörü kaçırmanın (yanlış negatif) yanlış pozitiften daha maliyetli olduğu durumlar için kritiktir.
 
-3. **YOLOv10s provides the most balanced predictions** with near-equal precision and recall, though at slightly lower overall accuracy.
+3. **YOLOv10s en dengeli tahminleri** neredeyse eşit precision ve recall ile sağlar, ancak biraz daha düşük genel doğrulukla.
 
-4. **Training efficiency varies significantly**: YOLOv8n trains nearly 3× faster than YOLOv9 and YOLOv10 with similar or better performance.
+4. **Eğitim verimliliği önemli ölçüde farklılık gösterir**: YOLOv8n, benzer veya daha iyi performansla YOLOv9 ve YOLOv10'dan yaklaşık 3 kat daha hızlı eğitilir.
 
-### Medical Implications
+### Tıbbi Çıkarımlar
 
-For medical applications, the choice depends on priorities:
-- **Maximize detection rate**: Choose YOLOv9s (highest recall)
-- **Minimize false positives**: Choose YOLOv8n (highest precision)  
-- **Balance both**: Choose YOLOv10s (balanced precision-recall)
+Tıbbi uygulamalar için seçim önceliklere bağlıdır:
+- **Tespit oranını maksimize et**: YOLOv9s seçin (en yüksek recall)
+- **Yanlış pozitifleri minimize et**: YOLOv8n seçin (en yüksek precision)
+- **İkisini dengele**: YOLOv10s seçin (dengeli precision-recall)
 
-All three models achieve >90% mAP50 and >68% mAP50-95, demonstrating the viability of YOLO-based object detection for automated brain tumor detection tasks.
+Üç model de >%90 mAP50 ve >%68 mAP50-95 elde ederek, otomatik beyin tümörü tespit görevleri için YOLO tabanlı nesne algılamanın uygulanabilirliğini göstermektedir.
 
 ---
 
-## 📁 Project Structure
+## 📁 Proje Yapısı
 
 ```
 yolo-project/
 │
-├── dataset/                       # Brain tumor dataset
-│   ├── train/                    # Training set (~2,062 images)
+├── dataset/                       # Beyin tümörü veri seti
+│   ├── train/                    # Eğitim seti (~2.062 görüntü)
 │   │   ├── images/
 │   │   └── labels/
-│   ├── valid/                    # Validation set (~612 images)
+│   ├── valid/                    # Doğrulama seti (~612 görüntü)
 │   │   ├── images/
 │   │   └── labels/
-│   ├── test/                     # Test set (~308 images)
+│   ├── test/                     # Test seti (~308 görüntü)
 │   │   ├── images/
 │   │   └── labels/
-│   ├── data.yaml                 # Dataset configuration
+│   ├── data.yaml                 # Veri seti yapılandırması
 │   ├── README.dataset.txt
 │   └── README.roboflow.txt
 │
-├── runs/                          # Training outputs
+├── runs/                          # Eğitim çıktıları
 │   └── detect/
-│       ├── yolov8s/train3/       # YOLOv8 experiment
+│       ├── yolov8s/train3/       # YOLOv8 deneyi
 │       │   ├── weights/
-│       │   │   ├── best.pt       # Best YOLOv8 model
+│       │   │   ├── best.pt       # YOLOv8 en iyi model
 │       │   │   └── last.pt
 │       │   ├── confusion_matrix.png
 │       │   ├── results.png
 │       │   ├── results.csv
 │       │   └── args.yaml
 │       │
-│       ├── yolov9n/train/        # YOLOv9 experiment
+│       ├── yolov9n/train/        # YOLOv9 deneyi
 │       │   ├── weights/
-│       │   │   ├── best.pt       # Best YOLOv9 model
+│       │   │   ├── best.pt       # YOLOv9 en iyi model
 │       │   │   └── last.pt
 │       │   ├── confusion_matrix.png
 │       │   ├── results.png
 │       │   ├── results.csv
 │       │   └── args.yaml
 │       │
-│       ├── yolov10/              # YOLOv10 experiment
+│       ├── yolov10/              # YOLOv10 deneyi
 │       │   ├── weights/
-│       │   │   ├── best.pt       # Best YOLOv10 model
+│       │   │   ├── best.pt       # YOLOv10 en iyi model
 │       │   │   └── last.pt
 │       │   ├── confusion_matrix.png
 │       │   ├── results.png
 │       │   ├── results.csv
 │       │   └── args.yaml
 │       │
-│       ├── val/                  # Validation results
+│       ├── val/                  # Doğrulama sonuçları
 │       └── val2/
 │
-├── train_yolov8.py               # YOLOv8 training script
-├── train_yolov9.py               # YOLOv9 training script
-├── train_yolov10.py              # YOLOv10 training script
-├── yolov8n.pt                    # Pretrained YOLOv8 weights
-├── yolov9s.pt                    # Pretrained YOLOv9 weights
-├── yolov10s.pt                   # Pretrained YOLOv10 weights
-├── yolo11n.pt                    # Pretrained YOLO11 weights
-└── README.md                      # This file
+├── train_yolov8.py               # YOLOv8 eğitim scripti
+├── train_yolov9.py               # YOLOv9 eğitim scripti
+├── train_yolov10.py              # YOLOv10 eğitim scripti
+├── yolov8n.pt                    # Önceden eğitilmiş YOLOv8 ağırlıkları
+├── yolov9s.pt                    # Önceden eğitilmiş YOLOv9 ağırlıkları
+├── yolov10s.pt                   # Önceden eğitilmiş YOLOv10 ağırlıkları
+├── yolo11n.pt                    # Önceden eğitilmiş YOLO11 ağırlıkları
+└── README.md                      # Bu dosya
 ```
 
 ---
 
-## 📚 References
+## 📚 Referanslar
 
 - **Ultralytics YOLOv8**: https://github.com/ultralytics/ultralytics
-- **YOLOv9 Paper**: [YOLOv9: Learning What You Want to Learn Using Programmable Gradient Information](https://arxiv.org/abs/2402.13616)
-- **YOLOv10 Paper**: [YOLOv10: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
-- **Dataset**: [Brain Tumor - Roboflow Universe](https://universe.roboflow.com/academia-keleu/brain-tumor-bb6yj/dataset/1)
+- **YOLOv9 Makalesi**: [YOLOv9: Learning What You Want to Learn Using Programmable Gradient Information](https://arxiv.org/abs/2402.13616)
+- **YOLOv10 Makalesi**: [YOLOv10: Real-Time End-to-End Object Detection](https://arxiv.org/abs/2405.14458)
+- **Veri Seti**: [Brain Tumor - Roboflow Universe](https://universe.roboflow.com/academia-keleu/brain-tumor-bb6yj/dataset/1)
 
 ---
 
-## 📝 License
+## 📝 Lisans
 
-- **Code**: This project uses [Ultralytics YOLO](https://github.com/ultralytics/ultralytics) under AGPL-3.0 license
-- **Dataset**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
+- **Kod**: Bu proje AGPL-3.0 lisansı altında [Ultralytics YOLO](https://github.com/ultralytics/ultralytics) kullanır
+- **Veri Seti**: [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/)
 
 ---
 
-## 👥 Acknowledgments
+## 👥 Teşekkürler
 
-- **Dataset Provider**: academia-keleu @ Roboflow Universe
-- **Framework**: Ultralytics YOLO team
-- **YOLO Creators**: Redmon et al., and subsequent contributors to YOLOv8/v9/v10
+- **Veri Seti Sağlayıcısı**: academia-keleu @ Roboflow Universe
+- **Framework**: Ultralytics YOLO ekibi
+- **YOLO Yaratıcıları**: Redmon ve arkadaşları, ve YOLOv8/v9/v10'a sonraki katkıda bulunanlar
 
 ---
 
 <div align="center">
 
-**🧠 Brain Tumor Detection with YOLO**
+**🧠 YOLO ile Beyin Tümörü Tespiti**
 
-*Leveraging State-of-the-Art Object Detection for Medical Imaging*
+*Tıbbi Görüntüleme için Son Teknoloji Nesne Algılama*
 
 </div>
