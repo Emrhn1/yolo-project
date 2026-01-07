@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+
+# YOLO
+*.pt
+*.pth
+*.weights
+*.onnx
+
+# Dataset images (too large for Git)
+dataset/train/images/
+dataset/valid/images/
+dataset/test/images/
+
+# Keep only labels and config
+!dataset/train/labels/
+!dataset/valid/labels/
+!dataset/test/labels/
+!dataset/*.yaml
+!dataset/*.txt
+
+# Training runs (keep structure but exclude heavy files)
+runs/**/weights/*.pt
+runs/**/weights/*.pth
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+
+# Misc
+*.log
+.cache/

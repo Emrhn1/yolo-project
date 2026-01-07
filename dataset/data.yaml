@@ -1,0 +1,13 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+nc: 3
+names: ['glioma', 'meningioma', 'pituitary']
+
+roboflow:
+  workspace: academia-keleu
+  project: brain-tumor-bb6yj
+  version: 1
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/academia-keleu/brain-tumor-bb6yj/dataset/1
