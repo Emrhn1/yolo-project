@@ -183,15 +183,20 @@ model.train(
 | DFL Loss (val) | 1.1952 |
 
 **Training Curves**
-- Training Results: `runs/detect/yolov8s/train3/results.png`
-- Confusion Matrix: `runs/detect/yolov8s/train3/confusion_matrix.png`
-- Normalized Confusion Matrix: `runs/detect/yolov8s/train3/confusion_matrix_normalized.png`
+
+![Training Results](runs/detect/yolov8s/train3/results.png)
+
+**Confusion Matrix**
+
+![Confusion Matrix](runs/detect/yolov8s/train3/confusion_matrix.png)
+
+![Normalized Confusion Matrix](runs/detect/yolov8s/train3/confusion_matrix_normalized.png)
 
 **Performance Curves**
-- Precision Curve: `runs/detect/yolov8s/train3/BoxP_curve.png`
-- Recall Curve: `runs/detect/yolov8s/train3/BoxR_curve.png`
-- F1-Score Curve: `runs/detect/yolov8s/train3/BoxF1_curve.png`
-- Precision-Recall Curve: `runs/detect/yolov8s/train3/BoxPR_curve.png`
+
+| Precision | Recall | F1-Score | PR Curve |
+|:---------:|:------:|:--------:|:--------:|
+| ![P](runs/detect/yolov8s/train3/BoxP_curve.png) | ![R](runs/detect/yolov8s/train3/BoxR_curve.png) | ![F1](runs/detect/yolov8s/train3/BoxF1_curve.png) | ![PR](runs/detect/yolov8s/train3/BoxPR_curve.png) |
 
 ---
 
@@ -209,15 +214,20 @@ model.train(
 | DFL Loss (val) | 1.3971 |
 
 **Training Curves**
-- Training Results: `runs/detect/yolov9n/train/results.png`
-- Confusion Matrix: `runs/detect/yolov9n/train/confusion_matrix.png`
-- Normalized Confusion Matrix: `runs/detect/yolov9n/train/confusion_matrix_normalized.png`
+
+![Training Results](runs/detect/yolov9n/train/results.png)
+
+**Confusion Matrix**
+
+![Confusion Matrix](runs/detect/yolov9n/train/confusion_matrix.png)
+
+![Normalized Confusion Matrix](runs/detect/yolov9n/train/confusion_matrix_normalized.png)
 
 **Performance Curves**
-- Precision Curve: `runs/detect/yolov9n/train/BoxP_curve.png`
-- Recall Curve: `runs/detect/yolov9n/train/BoxR_curve.png`
-- F1-Score Curve: `runs/detect/yolov9n/train/BoxF1_curve.png`
-- Precision-Recall Curve: `runs/detect/yolov9n/train/BoxPR_curve.png`
+
+| Precision | Recall | F1-Score | PR Curve |
+|:---------:|:------:|:--------:|:--------:|
+| ![P](runs/detect/yolov9n/train/BoxP_curve.png) | ![R](runs/detect/yolov9n/train/BoxR_curve.png) | ![F1](runs/detect/yolov9n/train/BoxF1_curve.png) | ![PR](runs/detect/yolov9n/train/BoxPR_curve.png) |
 
 ---
 
@@ -235,15 +245,20 @@ model.train(
 | DFL Loss (val) | 2.5260 |
 
 **Training Curves**
-- Training Results: `runs/detect/yolov10/results.png`
-- Confusion Matrix: `runs/detect/yolov10/confusion_matrix.png`
-- Normalized Confusion Matrix: `runs/detect/yolov10/confusion_matrix_normalized.png`
+
+![Training Results](runs/detect/yolov10/results.png)
+
+**Confusion Matrix**
+
+![Confusion Matrix](runs/detect/yolov10/confusion_matrix.png)
+
+![Normalized Confusion Matrix](runs/detect/yolov10/confusion_matrix_normalized.png)
 
 **Performance Curves**
-- Precision Curve: `runs/detect/yolov10/BoxP_curve.png`
-- Recall Curve: `runs/detect/yolov10/BoxR_curve.png`
-- F1-Score Curve: `runs/detect/yolov10/BoxF1_curve.png`
-- Precision-Recall Curve: `runs/detect/yolov10/BoxPR_curve.png`
+
+| Precision | Recall | F1-Score | PR Curve |
+|:---------:|:------:|:--------:|:--------:|
+| ![P](runs/detect/yolov10/BoxP_curve.png) | ![R](runs/detect/yolov10/BoxR_curve.png) | ![F1](runs/detect/yolov10/BoxF1_curve.png) | ![PR](runs/detect/yolov10/BoxPR_curve.png) |
 
 ---
 
